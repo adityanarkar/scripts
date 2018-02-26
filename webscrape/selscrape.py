@@ -15,8 +15,8 @@ while no_of_pagedowns:
     no_of_pagedowns-=1
 product_link = ""
 elements = browser.find_elements_by_class_name("details")
-for hover_element in elements:
-        a_element = hover_element.find_element_by_tag_name("a")
+for element in elements:
+        a_element = element.find_element_by_tag_name("a")
         # product_title = a_element.get_attribute("title")
         product_link = product_link + "\n" + a_element.get_attribute("href")
 print product_link
