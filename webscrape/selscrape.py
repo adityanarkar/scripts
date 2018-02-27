@@ -3,7 +3,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-browser = webdriver.Chrome('/Users/adityanarkar/Downloads/chromedriver')
+browser = webdriver.Chrome('Path/to/chromedriver')
 browser.get("https://play.google.com/store/apps/collection/topselling_free?hl=en")
 time.sleep(1)
 
