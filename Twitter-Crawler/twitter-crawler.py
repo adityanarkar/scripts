@@ -127,14 +127,19 @@ def putDataInHashtagCSV(tweetObj):
         countTag = getCount()
         for hash in ent:
             interTag=[]
-            interTag.append(countTag)
-            interTag.append(hash['text'])
-            hashtagCSV.append(interTag)
-            tweetWithAnotherCSV(countTag, tweetObj, 'tweetHash.csv')
-            countTag+=1
-        with open('hashtag.csv', mode='a') as f:
-            writer = csv.writer(f)
-            writer.writerows(hashtagCSV)
+            t = ifHashtagExists(hash['text'])
+            if(t):
+                tweetWithAnotherCSV(t, tweetObj, 'tweetHash.csv')
+            else:
+                interTag.append(countTag)
+                interTag.append(hash['text'])
+                hashtagCSV.append(interTag)
+                with open('hashtag.csv', mode='a') as f:
+                    writer = csv.writer(f)
+                    writer.writerow(interTag)
+                    f.close()
+                tweetWithAnotherCSV(countTag, tweetObj, 'tweetHash.csv')
+                countTag+=1
 
 
 def getMediaData(tweetObj):
@@ -179,6 +184,18 @@ def getCount():
     else:
         countTag = 1
     return countTag
+
+def ifHashtagExists(tag):
+    with open('hashtag.csv', 'rb') as f:
+        reader = csv.reader(f)
+        your_list = list(reader)
+        f.close()
+
+    for item in your_list:
+        if(item[1] == tag):
+            return item[0]
+    return 0
+
 count = 0
 while(count < 1000000):
     count+=1
